@@ -6,3 +6,4 @@ admin.site.register(Signup)
 admin.site.register(Session)
 admin.site.register(Student)
 
+
