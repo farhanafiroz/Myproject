@@ -26,3 +26,15 @@ class Student(models.Model):
 
     def __str__(self):
         return self.name
+
+class Register(models.Model):
+    first_name=models.CharField(max_length=20)
+    last_name = models.CharField(max_length=30)
+    email= models.EmailField(max_length=30)
+    verify_email= models.EmailField(max_length=30)
+    comment= models.CharField(max_length=30)
+    password= models.CharField(max_length=30)
+    verify_password = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.first_name
