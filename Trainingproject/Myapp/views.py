@@ -2,7 +2,6 @@ from django.core.serializers.base import Serializer
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import TemplateView
-
 from . import forms
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -10,8 +9,12 @@ from .models import Register
 from .serializers import RegisterSerializer
 from .models import Register
 from django.views.generic import TemplateView
-
+from rest_framework import viewsets
+from . import models
+from . import serializers
 from .forms import Registerform
+
+
 # Create your views here.
 
 #def home(request):
@@ -58,11 +61,27 @@ def python_training(request):
     return JsonResponse(data)
 
 
-class LoginList(APIView):
-    def get(self,request):
-        values= Register.objects.all()
-        Serializer= RegisterSerializer(values, many= True)
-        return Response(Serializer.data)
+# class LoginList(APIView):
+#     def get(self,request):
+#         values= Register.objects.all()
+#         Serializer= RegisterSerializer(values, many= True)
+#         return Response(Serializer.data)
 
-class PracticeView(TemplateView):
-    template_name = "Myapp/home.html"
+
+# class PracticeView(TemplateView):
+#     template_name = "Myapp/home.html"
+
+
+class RegisterViewSet(viewsets.ModelViewSet):
+    queryset= models.Register.objects.all()
+    serializer_class=serializers.RegisterSerializer
+
+
+class SignupViewSet(viewsets.ModelViewSet):
+    queryset= models.Signup.objects.all()
+    serializer_class=serializers.SignupSerializer
+
+
+class SessionViewSet(viewsets.ModelViewSet):
+    queryset = models.Session.objects.all()
+    serializer_class = serializers.SessionSerializer
