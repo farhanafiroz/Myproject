@@ -1,11 +1,22 @@
+from django.core.serializers.base import Serializer
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.generic import TemplateView
+
 from . import forms
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import Register
+from .serializers import RegisterSerializer
+from .models import Register
+from django.views.generic import TemplateView
+
 from .forms import Registerform
 # Create your views here.
 
 #def home(request):
      #return HttpResponse("Hey look! This is my first web page.")
+
 
 def home(request):
     return render(request, "Myapp/home.html")
@@ -40,3 +51,18 @@ def create(request):
 
 def success(request):
     return render(request, 'Myapp/success.html')
+
+
+def python_training(request):
+    data={1: {'Name': 'Ish', 'Age': 35}, 2: {'Name' : 'Onna','Age': 30}, 3: {'Name': 'Oiny', 'Age': 14}}
+    return JsonResponse(data)
+
+
+class LoginList(APIView):
+    def get(self,request):
+        values= Register.objects.all()
+        Serializer= RegisterSerializer(values, many= True)
+        return Response(Serializer.data)
+
+class PracticeView(TemplateView):
+    template_name = "Myapp/home.html"

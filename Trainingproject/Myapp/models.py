@@ -27,6 +27,7 @@ class Session(models.Model):
     class Meta:
         verbose_name_plural = 'Session'
 
+
 class Student(models.Model):
     name=models.CharField(max_length=20, unique=False)
     session=models.ForeignKey("session", on_delete=models.PROTECT)
@@ -46,7 +47,7 @@ class Register(models.Model):
     verify_email= models.EmailField(max_length=30)
     comment= models.CharField(max_length=30)
     password= models.CharField(max_length=30)
-    verify_password = models.CharField(max_length=30)
+    #verify_password = models.CharField(max_length=30)
 
     def __str__(self):
         return self.first_name
